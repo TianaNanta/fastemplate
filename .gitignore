@@ -15,3 +15,6 @@ htmlcov
 
 # pyproject
 poetry.lock
+
+# environment variable
+.env
