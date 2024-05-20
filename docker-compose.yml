@@ -4,7 +4,7 @@ services:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
     restart: always
     ports:
-      - "8888:8888"
+      - "8888:80"
     depends_on:
       db:
         condition: service_healthy
@@ -32,6 +32,8 @@ services:
       context: .
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
+    # command: sleep infinity  # Infinite loop to keep container alive doing nothing
+    # command: /start-reload.sh
 
   db:
     container_name: '${DOCKER_IMAGE_BACKEND?Variable not set}-database'
@@ -40,7 +42,7 @@ services:
     ports:
       - "5442:5432"
     volumes:
-      - ${DOCKER_IMAGE_BACKEND?Variable not set}-db-data:/var/lib/postgresql/data/pgdata
+      - app-db-data:/var/lib/postgresql/data/pgdata
     env_file:
       - .env
     healthcheck:
@@ -65,5 +67,5 @@ services:
       - ADMINER_DESIGN=pepa-linha-dark
 
 volumes:
-  ${DOCKER_IMAGE_BACKEND?Variable not set}-db-data:
-    name: ${DOCKER_IMAGE_BACKEND?Variable not set}-db-data
+  app-db-data:
+    name: app-db-data
