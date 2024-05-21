@@ -52,11 +52,6 @@ class UserPublic(UserBase):
     id: int
 
 
-class UsersPublic(SQLModel):
-    data: list[UserPublic]
-    count: int
-
-
 # Shared properties
 class ItemBase(SQLModel):
     title: str
@@ -85,11 +80,6 @@ class Item(ItemBase, table=True):
 class ItemPublic(ItemBase):
     id: int
     owner_id: int
-
-
-class ItemsPublic(SQLModel):
-    data: list[ItemPublic]
-    count: int
 
 
 # Generic message

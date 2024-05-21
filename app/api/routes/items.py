@@ -1,43 +1,29 @@
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlmodel import paginate
 from sqlmodel import func, select
 
 from app.api.deps import CurrentUser, SessionDep
-from app.models import Item, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate, Message
+from app.models import Item, ItemCreate, ItemPublic, ItemUpdate, Message
 
 router = APIRouter()
 
 
-@router.get("/", response_model=ItemsPublic)
+@router.get("/", response_model=Page[ItemPublic])
 def read_items(
-    session: SessionDep, current_user: CurrentUser, skip: int = 0, limit: int = 100
-) -> Any:
+    session: SessionDep, current_user: CurrentUser
+) -> Page[ItemPublic]:
     """
     Retrieve items.
     """
 
-    if current_user.is_superuser:
-        count_statement = select(func.count()).select_from(Item)
-        count = session.exec(count_statement).one()
-        statement = select(Item).offset(skip).limit(limit)
-        items = session.exec(statement).all()
-    else:
-        count_statement = (
-            select(func.count())
-            .select_from(Item)
-            .where(Item.owner_id == current_user.id)
-        )
-        count = session.exec(count_statement).one()
-        statement = (
-            select(Item)
-            .where(Item.owner_id == current_user.id)
-            .offset(skip)
-            .limit(limit)
-        )
-        items = session.exec(statement).all()
+    query = select(Item)
+    if not current_user.is_superuser:
+        query = query.where(Item.owner_id == current_user.id)
 
-    return ItemsPublic(data=items, count=count)
+    return paginate(session, query)
 
 
 @router.get("/{id}", response_model=ItemPublic)

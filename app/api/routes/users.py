@@ -1,6 +1,8 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlmodel import paginate
 from sqlmodel import col, delete, func, select
 
 from app import crud
@@ -19,7 +21,6 @@ from app.models import (
     UserCreate,
     UserPublic,
     UserRegister,
-    UsersPublic,
     UserUpdate,
     UserUpdateMe,
 )
@@ -31,20 +32,13 @@ router = APIRouter()
 @router.get(
     "/",
     dependencies=[Depends(get_current_active_superuser)],
-    response_model=UsersPublic,
+    response_model=Page[UserPublic],
 )
-def read_users(session: SessionDep, skip: int = 0, limit: int = 100) -> Any:
+def read_users(session: SessionDep) -> Page[UserPublic]:
     """
     Retrieve users.
     """
-
-    count_statement = select(func.count()).select_from(User)
-    count = session.exec(count_statement).one()
-
-    statement = select(User).offset(skip).limit(limit)
-    users = session.exec(statement).all()
-
-    return UsersPublic(data=users, count=count)
+    return paginate(session, select(User))
 
 
 @router.post(
