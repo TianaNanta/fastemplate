@@ -1,9 +1,18 @@
+from datetime import datetime
+
 from sqlmodel import Field, Relationship, SQLModel
 
 
 # Shared properties
+class TimeStampedModel(SQLModel):
+    created_at: datetime | None = Field(default_factory=datetime.utcnow)
+    updated_at: datetime | None = Field(
+        default_factory=datetime.utcnow, sa_column_kwargs={"onupdate": datetime.utcnow}
+    )
+
+
 # TODO replace email str with EmailStr when sqlmodel supports it
-class UserBase(SQLModel):
+class UserBase(TimeStampedModel):
     email: str = Field(unique=True, index=True)
     is_active: bool = True
     is_superuser: bool = False
@@ -53,7 +62,7 @@ class UserPublic(UserBase):
 
 
 # Shared properties
-class ItemBase(SQLModel):
+class ItemBase(TimeStampedModel):
     title: str
     description: str | None = None
 
