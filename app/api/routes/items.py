@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlmodel import paginate
-from sqlmodel import func, select
+from sqlmodel import select
 
 from app.api.deps import CurrentUser, SessionDep
 from app.models import Item, ItemCreate, ItemPublic, ItemUpdate, Message
@@ -12,9 +12,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=Page[ItemPublic])
-def read_items(
-    session: SessionDep, current_user: CurrentUser
-) -> Page[ItemPublic]:
+def read_items(session: SessionDep, current_user: CurrentUser) -> Page[ItemPublic]:
     """
     Retrieve items.
     """

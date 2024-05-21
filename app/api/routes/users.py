@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlmodel import paginate
-from sqlmodel import col, delete, func, select
+from sqlmodel import col, delete, select
 
 from app import crud
 from app.api.deps import (
