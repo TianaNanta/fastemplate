@@ -6,6 +6,7 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
 
 alembic==1.13.1
 annotated-types==0.6.0
@@ -41,9 +42,11 @@ email-validator==2.1.1
     # via fastapi
 emails==0.6
 fastapi==0.111.0
+    # via fastapi-pagination
     # via sentry-sdk
 fastapi-cli==0.0.4
     # via fastapi
+fastapi-pagination==0.12.24
 greenlet==3.0.3
     # via sqlalchemy
 gunicorn==22.0.0
@@ -87,6 +90,7 @@ psycopg-binary==3.1.19
     # via psycopg
 pydantic==2.7.1
     # via fastapi
+    # via fastapi-pagination
     # via pydantic-settings
     # via sqlmodel
 pydantic-core==2.18.2
@@ -129,6 +133,7 @@ typer==0.12.3
 typing-extensions==4.11.0
     # via alembic
     # via fastapi
+    # via fastapi-pagination
     # via psycopg
     # via pydantic
     # via pydantic-core
