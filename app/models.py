@@ -12,7 +12,7 @@ class TimeStampedModel(SQLModel):
 
 
 # TODO replace email str with EmailStr when sqlmodel supports it
-class UserBase(TimeStampedModel):
+class UserBase(SQLModel):
     email: str = Field(unique=True, index=True)
     is_active: bool = True
     is_superuser: bool = False
@@ -50,19 +50,19 @@ class UpdatePassword(SQLModel):
 
 
 # Database model, database table inferred from class name
-class User(UserBase, table=True):
+class User(UserBase, TimeStampedModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner")
 
 
 # Properties to return via API, id is always required
-class UserPublic(UserBase):
+class UserPublic(UserBase, TimeStampedModel):
     id: int
 
 
 # Shared properties
-class ItemBase(TimeStampedModel):
+class ItemBase(SQLModel):
     title: str
     description: str | None = None
 
@@ -78,7 +78,7 @@ class ItemUpdate(ItemBase):
 
 
 # Database model, database table inferred from class name
-class Item(ItemBase, table=True):
+class Item(ItemBase, TimeStampedModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str
     owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
@@ -86,7 +86,7 @@ class Item(ItemBase, table=True):
 
 
 # Properties to return via API, id is always required
-class ItemPublic(ItemBase):
+class ItemPublic(ItemBase, TimeStampedModel):
     id: int
     owner_id: int
 

@@ -1,8 +1,8 @@
-"""Add timestampedmodel
+"""add timestamp to models
 
-Revision ID: f7ac92519f28
+Revision ID: 496bfdf99108
 Revises: e2412789c190
-Create Date: 2024-05-21 18:46:53.222624
+Create Date: 2024-05-22 04:42:22.838046
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import sqlmodel.sql.sqltypes
 
 
 # revision identifiers, used by Alembic.
-revision = 'f7ac92519f28'
+revision = '496bfdf99108'
 down_revision = 'e2412789c190'
 branch_labels = None
 depends_on = None
