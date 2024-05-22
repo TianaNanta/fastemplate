@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field
+
+from app.models import SQLModel
 
 
 # Shared properties

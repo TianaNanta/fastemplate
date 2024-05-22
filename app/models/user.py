@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship
+
+from app.models import SQLModel
 
 from .base import TimeStampedModel
 
