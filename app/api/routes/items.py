@@ -20,6 +20,7 @@ def read_items(session: SessionDep, current_user: CurrentUser) -> Page[ItemPubli
     query = select(Item)
     if not current_user.is_superuser:
         query = query.where(Item.owner_id == current_user.id)
+    query = query.order_by(Item.updated_at.desc())
 
     return paginate(session, query)
 

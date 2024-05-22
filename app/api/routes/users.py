@@ -38,7 +38,7 @@ def read_users(session: SessionDep) -> Page[UserPublic]:
     """
     Retrieve users.
     """
-    return paginate(session, select(User))
+    return paginate(session, select(User).order_by(User.updated_at.desc()))
 
 
 @router.post(
