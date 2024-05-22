@@ -28,22 +28,24 @@
       "rangav.vscode-thunder-client"
       "ms-azuretools.vscode-docker"
       "pinage404.git-extension-pack"
+      "humao.rest-client"
     ];
 
     # Enable previews
     previews = {
       enable = true;
       previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
+        web = {
+          # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
+          # and show it in IDX's web preview panel
+          command = [];
+          cwd = "/home/user/fastemplate";
+          manager = "web";
+          env = {
+            # Environment variables to set for your server
+            PORT = 8888;
+          };
+        };
       };
     };
 
