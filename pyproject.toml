@@ -25,6 +25,8 @@ dependencies = [
     "sentry-sdk[fastapi]>=2.2.0",
     "pyjwt>=2.8.0",
     "fastapi-pagination>=0.12.24",
+    "fastapi-storages>=0.3.0",
+    "pillow>=10.3.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
