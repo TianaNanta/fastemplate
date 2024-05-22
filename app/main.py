@@ -5,7 +5,7 @@ from fastapi_pagination import add_pagination
 from sqladmin import Admin
 from starlette.middleware.cors import CORSMiddleware
 
-from app.admin import UserAdmin
+from app.admin import ItemAdmin, UserAdmin
 from app.api.main import api_router
 from app.core.config import settings
 from app.core.db import engine
@@ -43,3 +43,4 @@ add_pagination(app)
 # sqladmin configuration
 admin = Admin(app, engine)
 admin.add_view(UserAdmin)
+admin.add_view(ItemAdmin)
