@@ -2,6 +2,7 @@ from datetime import datetime
 
 from sqlmodel import Field, SQLModel
 
+
 # Shared properties
 class TimeStampedModel(SQLModel):
     created_at: datetime | None = Field(default_factory=datetime.utcnow)

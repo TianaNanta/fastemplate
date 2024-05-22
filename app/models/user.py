@@ -1,9 +1,12 @@
 from typing import TYPE_CHECKING
+
 from sqlmodel import Field, Relationship, SQLModel
+
 from app.models import TimeStampedModel
 
 if TYPE_CHECKING:
     from app.models import Item
+
 
 # TODO replace email str with EmailStr when sqlmodel supports it
 class UserBase(SQLModel):
