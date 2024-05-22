@@ -5,7 +5,7 @@ from fastapi_pagination import add_pagination
 from sqladmin import Admin
 from starlette.middleware.cors import CORSMiddleware
 
-from app.admin import ItemAdmin, UserAdmin
+from app.admin import AdminAuth, ItemAdmin, UserAdmin
 from app.api.main import api_router
 from app.core.config import settings
 from app.core.db import engine
@@ -41,6 +41,7 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 add_pagination(app)
 
 # sqladmin configuration
-admin = Admin(app, engine)
+authentication_backend = AdminAuth(secret_key=settings.SECRET_KEY)
+admin = Admin(app=app, engine=engine, authentication_backend=authentication_backend)
 admin.add_view(UserAdmin)
 admin.add_view(ItemAdmin)
