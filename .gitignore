@@ -13,7 +13,7 @@ htmlcov
 # IDE
 .idea/
 .vscode/
-.idx/
+# .idx/
 
 # venv
 .venv
