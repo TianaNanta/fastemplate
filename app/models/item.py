@@ -1,6 +1,7 @@
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.models import TimeStampedModel, User
+from .base import TimeStampedModel
+from .user import User
 
 
 # Shared properties

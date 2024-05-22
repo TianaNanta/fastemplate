@@ -1,3 +1,5 @@
+from sqlmodel import SQLModel  # noqa: F401
+
 from .base import TimeStampedModel  # noqa: F401
 from .item import Item, ItemBase, ItemCreate, ItemPublic, ItemUpdate  # noqa: F401
 from .user import (

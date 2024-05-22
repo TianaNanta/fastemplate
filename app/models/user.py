@@ -2,10 +2,10 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.models import TimeStampedModel
+from .base import TimeStampedModel
 
 if TYPE_CHECKING:
-    from app.models import Item
+    from .item import Item
 
 
 # TODO replace email str with EmailStr when sqlmodel supports it
