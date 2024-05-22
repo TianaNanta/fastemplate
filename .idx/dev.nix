@@ -21,6 +21,12 @@
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       # "vscodevim.vim"
+      "ms-python.python"
+      "EricSia.pythonsnippets3"
+      "franneck94.vscode-python-dev-extension-pack"
+      "rangav.vscode-thunder-client"
+      "ms-azuretools.vscode-docker"
+      "pinage404.git-extension-pack"
     ];
 
     # Enable previews
