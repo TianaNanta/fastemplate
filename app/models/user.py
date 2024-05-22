@@ -1,15 +1,9 @@
-from datetime import datetime
-
+from typing import TYPE_CHECKING
 from sqlmodel import Field, Relationship, SQLModel
+from app.models import TimeStampedModel
 
-
-# Shared properties
-class TimeStampedModel(SQLModel):
-    created_at: datetime | None = Field(default_factory=datetime.utcnow)
-    updated_at: datetime | None = Field(
-        default_factory=datetime.utcnow, sa_column_kwargs={"onupdate": datetime.utcnow}
-    )
-
+if TYPE_CHECKING:
+    from app.models import Item
 
 # TODO replace email str with EmailStr when sqlmodel supports it
 class UserBase(SQLModel):
@@ -59,36 +53,6 @@ class User(UserBase, TimeStampedModel, table=True):
 # Properties to return via API, id is always required
 class UserPublic(UserBase, TimeStampedModel):
     id: int
-
-
-# Shared properties
-class ItemBase(SQLModel):
-    title: str
-    description: str | None = None
-
-
-# Properties to receive on item creation
-class ItemCreate(ItemBase):
-    title: str
-
-
-# Properties to receive on item update
-class ItemUpdate(ItemBase):
-    title: str | None = None  # type: ignore
-
-
-# Database model, database table inferred from class name
-class Item(ItemBase, TimeStampedModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    title: str
-    owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
-    owner: User | None = Relationship(back_populates="items")
-
-
-# Properties to return via API, id is always required
-class ItemPublic(ItemBase, TimeStampedModel):
-    id: int
-    owner_id: int
 
 
 # Generic message
