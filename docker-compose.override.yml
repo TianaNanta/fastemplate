@@ -15,7 +15,7 @@ services:
   db:
     restart: "no"
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_EXPOSED_PORT}:5432"
 
   adminer:
     restart: "no"
