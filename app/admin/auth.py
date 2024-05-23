@@ -12,6 +12,7 @@ from app.core.db import engine
 
 
 class AdminAuth(AuthenticationBackend):
+    """ """
     async def login(self, request: Request) -> bool:
         form = await request.form()
         username, password = form["username"], form["password"]
