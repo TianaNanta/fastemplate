@@ -13,12 +13,15 @@ from app.core.db import engine
 
 class AdminAuth(AuthenticationBackend):
     """ """
+
     async def login(self, request: Request) -> bool:
         form = await request.form()
         username, password = form["username"], form["password"]
 
         with Session(engine) as session:
-            user = crud.authenticate(session=session, email=username, password=password)
+            user = crud.authenticate(session=session,
+                                     email=username,
+                                     password=password)
             if not user:
                 return False
             elif not user.is_active:
@@ -26,12 +29,10 @@ class AdminAuth(AuthenticationBackend):
             elif not user.is_superuser:
                 return False
             access_token_expires = timedelta(
-                minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
-            )
+                minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
             token = security.create_access_token(
-                user.id, expires_delta=access_token_expires
-            )
+                user.id, expires_delta=access_token_expires)
 
             # Validate username/password credentials
             # And update session
