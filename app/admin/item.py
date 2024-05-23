@@ -1,6 +1,7 @@
 from sqladmin import ModelView
 
-from app.models import Item, User
+from app.models import Item
+from app.models import User
 
 
 class ItemAdmin(ModelView, model=Item):
