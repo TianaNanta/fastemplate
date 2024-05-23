@@ -1,10 +1,9 @@
-from sqlmodel import Field
-from sqlmodel import Relationship
+from sqlmodel import Field, Relationship
+
+from app.models import SQLModel
 
 from .base import TimeStampedModel
-from .user import User
-from .user import UserPublic
-from app.models import SQLModel
+from .user import User, UserPublic
 
 
 # Shared properties
@@ -35,9 +34,7 @@ class Item(ItemBase, TimeStampedModel, table=True):
 
     id: int | None = Field(default=None, primary_key=True)
     title: str
-    owner_id: int | None = Field(default=None,
-                                 foreign_key="user.id",
-                                 nullable=False)
+    owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
     owner: User | None = Relationship(back_populates="items")
 
     def __str__(self):
