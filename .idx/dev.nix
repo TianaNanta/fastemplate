@@ -34,19 +34,25 @@
     # Enable previews
     previews = {
       enable = true;
-      # previews = {
-      #   web = {
-      #     # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-      #     # and show it in IDX's web preview panel
-      #     command = ["docker-compose up --build --detach"];
-      #     manager = "web";
-      #     env = {
-      #       # Environment variables to set for your server
-      #       BACKEND_PORT = 8888;
-      #       PORT = 8888;
-      #     };
-      #   };
-      # };
+      previews = {
+        web = {
+          # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
+          # and show it in IDX's web preview panel
+          command = [
+            "docker"
+            "compose"
+            "up"
+            "--build"
+            "--detach"
+          ];
+          manager = "web";
+          env = {
+            # Environment variables to set for your server
+            BACKEND_PORT = "8888";
+            PORT = "8888";
+          };
+        };
+      };
     };
 
     # Workspace lifecycle hooks
