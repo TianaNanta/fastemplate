@@ -12,13 +12,15 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(
         user_create, update={"hashed_password": get_password_hash(user_create.password)}
     )
+
     validate_email = requests.get(f"https://api.mailcheck.ai/email/{db_obj.email}")
+    data = validate_email.json()
+
     if validate_email.status_code != status.HTTP_200_OK:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Error validating the user email !",
+            status_code=validate_email.status_code,
+            detail=data["error"],
         )
-    data = validate_email.json()
     if data["disposable"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
