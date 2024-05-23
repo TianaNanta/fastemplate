@@ -8,7 +8,7 @@ from .user import User
 
 # Shared properties
 class ItemBase(SQLModel):
-    title: str
+    title: str = Field(index=True)
     description: str | None = None
 
 
