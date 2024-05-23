@@ -1,9 +1,10 @@
-from sqlmodel import Field, Relationship
-
-from app.models import SQLModel
+from sqlmodel import Field
+from sqlmodel import Relationship
 
 from .base import TimeStampedModel
-from .user import User, UserPublic
+from .user import User
+from .user import UserPublic
+from app.models import SQLModel
 
 
 # Shared properties
