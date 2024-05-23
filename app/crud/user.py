@@ -26,6 +26,7 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Disposable email is not authorized, use a real one !",
         )
+
     session.add(db_obj)
     session.commit()
     session.refresh(db_obj)
@@ -40,6 +41,21 @@ def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
         hashed_password = get_password_hash(password)
         extra_data["hashed_password"] = hashed_password
     db_user.sqlmodel_update(user_data, update=extra_data)
+
+    validate_email = requests.get(f"https://api.mailcheck.ai/email/{db_user.email}")
+    data = validate_email.json()
+
+    if validate_email.status_code != status.HTTP_200_OK:
+        raise HTTPException(
+            status_code=validate_email.status_code,
+            detail=data["error"],
+        )
+    if data["disposable"]:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Disposable email is not authorized, use a real one !",
+        )
+
     session.add(db_user)
     session.commit()
     session.refresh(db_user)
