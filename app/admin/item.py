@@ -6,6 +6,7 @@ from app.models import User
 
 class ItemAdmin(ModelView, model=Item):
     """ """
+
     def user_formatter(user: User):
         """
 

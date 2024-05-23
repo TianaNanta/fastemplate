@@ -30,7 +30,9 @@ class Item(ItemBase, TimeStampedModel, table=True):
     """ """
     id: int | None = Field(default=None, primary_key=True)
     title: str
-    owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
+    owner_id: int | None = Field(default=None,
+                                 foreign_key="user.id",
+                                 nullable=False)
     owner: User | None = Relationship(back_populates="items")
 
     def __str__(self):
