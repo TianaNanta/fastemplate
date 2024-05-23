@@ -9,7 +9,7 @@ class ItemAdmin(ModelView, model=Item):
     def user_formatter(user: User):
         """
 
-        :param user: User: 
+        :param user: User:
 
         """
         return user.email
