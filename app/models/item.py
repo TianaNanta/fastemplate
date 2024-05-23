@@ -3,7 +3,7 @@ from sqlmodel import Field, Relationship
 from app.models import SQLModel
 
 from .base import TimeStampedModel
-from .user import User
+from .user import User, UserPublic
 
 
 # Shared properties
@@ -37,3 +37,4 @@ class Item(ItemBase, TimeStampedModel, table=True):
 class ItemPublic(ItemBase, TimeStampedModel):
     id: int
     owner_id: int
+    owner: UserPublic
