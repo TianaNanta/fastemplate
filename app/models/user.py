@@ -1,10 +1,10 @@
 from typing import TYPE_CHECKING
 
-from sqlmodel import Field
-from sqlmodel import Relationship
+from sqlmodel import Field, Relationship
+
+from app.models import SQLModel
 
 from .base import TimeStampedModel
-from app.models import SQLModel
 
 if TYPE_CHECKING:
     from .item import Item
