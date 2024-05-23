@@ -8,7 +8,7 @@ class UserAdmin(ModelView, model=User):
     column_searchable_list = [User.email]
     column_sortable_list = [User.id]
     column_default_sort = [(User.email, True), (User.full_name, False)]
-    column_details_exclude_list = [User.hashed_password, User.items]
+    column_details_exclude_list = [User.hashed_password]
 
     # pagination configuration
     page_size = 50
