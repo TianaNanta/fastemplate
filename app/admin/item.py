@@ -4,7 +4,13 @@ from app.models import Item, User
 
 
 class ItemAdmin(ModelView, model=Item):
+    """ """
     def user_formatter(user: User):
+        """
+
+        :param user: User: 
+
+        """
         return user.email
 
     column_list = [Item.id, Item.title, Item.description]
