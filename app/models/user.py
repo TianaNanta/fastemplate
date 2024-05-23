@@ -8,6 +8,7 @@ from .base import TimeStampedModel
 
 if TYPE_CHECKING:
     from .item import Item
+    # from .item import ItemPublic
 
 
 # TODO replace email str with EmailStr when sqlmodel supports it
@@ -61,6 +62,7 @@ class User(UserBase, TimeStampedModel, table=True):
 # Properties to return via API, id is always required
 class UserPublic(UserBase, TimeStampedModel):
     id: int
+    # items: list["ItemPublic"]
 
 
 # Generic message
