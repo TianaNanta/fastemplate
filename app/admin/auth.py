@@ -17,8 +17,7 @@ class AdminAuth(AuthenticationBackend):
         username, password = form["username"], form["password"]
 
         with Session(engine) as session:
-            user = crud.authenticate(
-                session=session, email=username, password=password)
+            user = crud.authenticate(session=session, email=username, password=password)
             if not user:
                 return False
             elif not user.is_active:
