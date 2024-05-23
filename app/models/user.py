@@ -8,6 +8,7 @@ from .base import TimeStampedModel
 
 if TYPE_CHECKING:
     from .item import Item
+
     # from .item import ItemPublic
 
 
