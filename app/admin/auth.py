@@ -5,6 +5,7 @@ from sqladmin.authentication import AuthenticationBackend
 from sqlmodel import Session
 
 from app import crud
+from app.api.deps import get_current_user
 from app.core import security
 from app.core.config import settings
 from app.core.db import engine
@@ -45,8 +46,15 @@ class AdminAuth(AuthenticationBackend):
     async def authenticate(self, request: Request) -> bool:
         token = request.session.get("token")
 
-        if not token:
-            return False
+        with Session(engine) as session:
+            user = get_current_user(session, token)
 
-        # Check the token in depth
-        return True
+            if not user:
+                return False
+            if not user.is_active:
+                return False
+            if not user.is_superuser:
+                return False
+
+            # Check the token in depth
+            return True
