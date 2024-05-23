@@ -54,6 +54,9 @@ class User(UserBase, TimeStampedModel, table=True):
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner")
 
+    def __str__(self):
+        return self.full_name
+
 
 # Properties to return via API, id is always required
 class UserPublic(UserBase, TimeStampedModel):
