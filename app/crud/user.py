@@ -1,8 +1,8 @@
 from typing import Any
 
+import requests
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
-from validator_pizza_python import PizzaValidator
 
 from app.core.security import get_password_hash, verify_password
 from app.models import User, UserCreate, UserUpdate
@@ -12,7 +12,14 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(
         user_create, update={"hashed_password": get_password_hash(user_create.password)}
     )
-    if PizzaValidator.is_disposable(db_obj.email):
+    validate_email = requests.get(f"https://api.mailcheck.ai/email/{db_obj.email}")
+    if validate_email.status_code != status.HTTP_200_OK:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Error validating the user email !",
+        )
+    data = validate_email.json()
+    if data["disposable"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Disposable email is not authorized, use a real one !",
