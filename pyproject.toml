@@ -26,6 +26,7 @@ dependencies = [
     "pyjwt>=2.8.0",
     "fastapi-pagination>=0.12.24",
     "sqladmin[full]>=0.17.0",
+    "validator-pizza-python>=1.0.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
