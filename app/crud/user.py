@@ -16,9 +16,9 @@ from app.models import UserUpdate
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     """
 
-    :param *: 
-    :param session: Session: 
-    :param user_create: UserCreate: 
+    :param *:
+    :param session: Session:
+    :param user_create: UserCreate:
 
     """
     db_obj = User.model_validate(
@@ -48,10 +48,10 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
 def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
     """
 
-    :param *: 
-    :param session: Session: 
-    :param db_user: User: 
-    :param user_in: UserUpdate: 
+    :param *:
+    :param session: Session:
+    :param db_user: User:
+    :param user_in: UserUpdate:
 
     """
     user_data = user_in.model_dump(exclude_unset=True)
@@ -85,9 +85,9 @@ def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
 def get_user_by_email(*, session: Session, email: str) -> User | None:
     """
 
-    :param *: 
-    :param session: Session: 
-    :param email: str: 
+    :param *:
+    :param session: Session:
+    :param email: str:
 
     """
     statement = select(User).where(User.email == email)
@@ -98,10 +98,10 @@ def get_user_by_email(*, session: Session, email: str) -> User | None:
 def authenticate(*, session: Session, email: str, password: str) -> User | None:
     """
 
-    :param *: 
-    :param session: Session: 
-    :param email: str: 
-    :param password: str: 
+    :param *:
+    :param session: Session:
+    :param email: str:
+    :param password: str:
 
     """
     db_user = get_user_by_email(session=session, email=email)
