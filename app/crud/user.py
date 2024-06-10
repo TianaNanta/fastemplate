@@ -1,11 +1,16 @@
 from typing import Any
 
 import requests
-from fastapi import HTTPException, status
-from sqlmodel import Session, select
+from fastapi import HTTPException
+from fastapi import status
+from sqlmodel import select
+from sqlmodel import Session
 
-from app.core.security import get_password_hash, verify_password
-from app.models import User, UserCreate, UserUpdate
+from app.core.security import get_password_hash
+from app.core.security import verify_password
+from app.models import User
+from app.models import UserCreate
+from app.models import UserUpdate
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
