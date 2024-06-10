@@ -22,10 +22,11 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
 
     """
     db_obj = User.model_validate(
-        user_create, update={"hashed_password": get_password_hash(user_create.password)}
-    )
+        user_create,
+        update={"hashed_password": get_password_hash(user_create.password)})
 
-    validate_email = requests.get(f"https://api.mailcheck.ai/email/{db_obj.email}")
+    validate_email = requests.get(
+        f"https://api.mailcheck.ai/email/{db_obj.email}")
     data = validate_email.json()
 
     if validate_email.status_code != status.HTTP_200_OK:
@@ -45,7 +46,8 @@ def create_user(*, session: Session, user_create: UserCreate) -> User:
     return db_obj
 
 
-def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
+def update_user(*, session: Session, db_user: User,
+                user_in: UserUpdate) -> Any:
     """
 
     :param *:
@@ -62,7 +64,8 @@ def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
         extra_data["hashed_password"] = hashed_password
     db_user.sqlmodel_update(user_data, update=extra_data)
 
-    validate_email = requests.get(f"https://api.mailcheck.ai/email/{db_user.email}")
+    validate_email = requests.get(
+        f"https://api.mailcheck.ai/email/{db_user.email}")
     data = validate_email.json()
 
     if validate_email.status_code != status.HTTP_200_OK:
@@ -95,7 +98,8 @@ def get_user_by_email(*, session: Session, email: str) -> User | None:
     return session_user
 
 
-def authenticate(*, session: Session, email: str, password: str) -> User | None:
+def authenticate(*, session: Session, email: str,
+                 password: str) -> User | None:
     """
 
     :param *:
